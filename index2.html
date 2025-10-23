@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-R-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infográfico Interativo Salesforce</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Chosen Palette: Energetic & Playful -->
+    <!-- Narrative Plan: A top-to-bottom scrollable infographic. Starts with 'What is it?' (Visão Geral), moves to 'Why is it important?' (Alcance & Mercado), then 'How does it work?' (Técnico & Custos), and finally 'How do I join?' (Aprendizado & Mercado de Trabalho). This narrative guides a new user from awareness to consideration. -->
+    <!-- Visualization Choices: (1) Visão Geral -> HTML/CSS Cards, Goal: Inform, Justification: Simple, clear, non-SVG way to show core products. (2) Custos -> Bar Chart, Goal: Compare, Justification: Best for comparing relative cost/benefit of discrete editions, Library: Chart.js (NO SVG). (3) Alcance -> Donut Chart, Goal: Inform (Composition), Justification: Perfect for showing market share dominance, Library: Chart.js (NO SVG). (4) Técnico -> HTML/CSS Diagram, Goal: Organize, Justification: Custom HTML/Tailwind diagram for 'Clicks vs Code' process flow (NO SVG/Mermaid). (5) Aprendizado -> HTML/CSS Cards, Goal: Organize, Justification: Simple cards for career paths (NO SVG). (6) Mercado -> Grouped Bar Chart, Goal: Compare, Justification: Standard way to compare salaries by role and experience, Library: Chart.js (NO SVG). -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #F7F9FC;
+            color: #073B4C;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 350px;
+            max-height: 400px;
+            padding: 1rem;
+            background-color: #ffffff;
+            border-radius: 0.75rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 400px;
+            }
+        }
+        h1, h2, h3 {
+            font-weight: 700;
+            color: #073B4C;
+        }
+        .section-card {
+            background-color: white;
+            border-radius: 0.75rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            padding: 1.5rem;
+        }
+        .nav-link {
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .nav-link:hover {
+            color: #118AB2;
+            transform: translateY(-2px);
+        }
+        .flow-box {
+            border: 2px solid #073B4C;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            text-align: center;
+            background-color: #ffffff;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+        .flow-arrow {
+            position: relative;
+            height: 50px;
+            width: 2px;
+            background-color: #073B4C;
+            margin: 0.5rem auto;
+        }
+        .flow-arrow::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0; 
+            height: 0; 
+            border-left: 6px solid transparent;
+            border-right: 6px solid transparent;
+            border-top: 8px solid #073B4C;
+        }
+        .path-card {
+            border-left: 5px solid;
+            transition: all 0.3s ease;
+        }
+        .path-card:hover {
+            transform: scale(1.03);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <header class="bg-white shadow-md sticky top-0 z-50">
+        <nav class="container mx-auto px-6 py-4 flex flex-wrap justify-between items-center">
+            <h1 class="text-3xl font-bold text-blue-600">
+                <span style="color: #118AB2;">Infográfico Salesforce</span>
+            </h1>
+            <div class="flex space-x-4 mt-4 md:mt-0 font-semibold">
+                <a href="#visao-geral" class="nav-link">Visão Geral</a>
+                <a href="#alcance" class="nav-link">Alcance</a>
+                <a href="#tecnico" class="nav-link">Técnico</a>
+                <a href="#carreira" class="nav-link">Carreira</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container mx-auto p-4 md:p-8 space-y-16">
+
+        <section id="visao-geral" class="text-center">
+            <h2 class="text-4xl font-bold mb-4">O que é Salesforce?</h2>
+            <p class="text-xl text-gray-700 max-w-3xl mx-auto mb-12">
+                Salesforce é a plataforma de Gerenciamento de Relacionamento com o Cliente (CRM) nº 1 do mundo. Ela opera 100% em nuvem, unificando departamentos de vendas, atendimento, marketing e TI em uma única visão compartilhada de cada cliente.
+            </p>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="section-card transform transition hover:scale-105" style="border-top: 8px solid #FF6B6B;">
+                    <span class="text-5xl">🛍️</span>
+                    <h3 class="text-2xl mt-4 mb-2">Sales Cloud</h3>
+                    <p>Focada em automação da força de vendas. Ajuda equipes a gerenciar leads, oportunidades e fechar negócios mais rápido.</p>
+                </div>
+                <div class="section-card transform transition hover:scale-105" style="border-top: 8px solid #06D6A0;">
+                    <span class="text-5xl">🎧</span>
+                    <h3 class="text-2xl mt-4 mb-2">Service Cloud</h3>
+                    <p>Plataforma de atendimento ao cliente. Permite oferecer suporte personalizado e eficiente em múltiplos canais.</p>
+                </div>
+                <div class="section-card transform transition hover:scale-105" style="border-top: 8px solid #118AB2;">
+                    <span class="text-5xl">🎯</span>
+                    <h3 class="text-2xl mt-4 mb-2">Marketing Cloud</h3>
+                    <p>Permite criar jornadas de cliente 1-para-1, gerenciar publicidade digital, e-mail marketing e mídias sociais.</p>
+                </div>
+            </div>
+        </section>
+
+        <hr class="my-16 border-gray-300">
+
+        <section id="alcance" class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+            <div>
+                <h2 class="text-4xl font-bold mb-4">Alcance Global e Ecossistema</h2>
+                <p class="text-lg text-gray-700 mb-6">
+                    A dominância do Salesforce no mercado de CRM é vasta. Ele é utilizado por empresas de todos os tamanhos, desde startups até 90% das empresas da Fortune 500. Seu poder é amplificado por um ecossistema robusto.
+                </p>
+                <ul class="space-y-4">
+                    <li class="section-card">
+                        <h3 class="text-xl font-semibold mb-1" style="color: #118AB2;">AppExchange</h3>
+                        <p>O "marketplace" do Salesforce, com milhares de aplicativos e integrações prontas que estendem a funcionalidade da plataforma.</p>
+                    </li>
+                    <li class="section-card">
+                        <h3 class="text-xl font-semibold mb-1" style="color: #118AB2;">APIs Robustas</h3>
+                        <p>Permitem que desenvolvedores conectem o Salesforce a qualquer sistema externo, criando uma fonte única de verdade.</p>
+                    </li>
+                </ul>
+            </div>
+            <div class="chart-container h-96">
+                <h3 class="text-xl font-semibold text-center mb-4">Participação no Mercado Global de CRM</h3>
+                <canvas id="marketShareChart"></canvas>
+            </div>
+        </section>
+
+        <hr class="my-16 border-gray-300">
+
+        <section id="custos-analise">
+            <h2 class="text-4xl font-bold mb-12 text-center">Análise de Custos e Adoção</h2>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+                <div class="chart-container h-96">
+                    <h3 class="text-xl font-semibold text-center mb-4">Custo x Benefício Relativo (Estimado)</h3>
+                    <canvas id="costChart"></canvas>
+                </div>
+                <div>
+                    <h3 class="text-3xl font-bold mb-4">Prós vs. Contras</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="section-card" style="border-left: 5px solid #06D6A0;">
+                            <h4 class="text-2xl font-semibold mb-2" style="color: #06D6A0;">Prós (Benefícios)</h4>
+                            <ul class="list-disc list-inside space-y-1">
+                                <li>Líder de mercado</li>
+                                <li>Altamente escalável</li>
+                                <li>Ecossistema gigante (AppExchange)</li>
+                                <li>Inovação constante</li>
+                                <li>Vasta comunidade de suporte</li>
+                            </ul>
+                        </div>
+                        <div class="section-card" style="border-left: 5px solid #FF6B6B;">
+                            <h4 class="text-2xl font-semibold mb-2" style="color: #FF6B6B;">Contras (Desafios)</h4>
+                            <ul class="list-disc list-inside space-y-1">
+                                <li>Custo de licenciamento elevado</li>
+                                <li>Implementação complexa</li>
+                                <li>Curva de aprendizado</li>
+                                <li>Custos adicionais (add-ons)</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <hr class="my-16 border-gray-300">
+
+        <section id="tecnico">
+            <h2 class="text-4xl font-bold mb-12 text-center">Como Funciona por Baixo dos Panos?</h2>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <div>
+                    <h3 class="text-3xl font-bold mb-4">Estrutura de Dados e Automação</h3>
+                    <p class="text-lg text-gray-700 mb-6">
+                        O Salesforce organiza dados como um banco de dados relacional, usando "Objetos" (tabelas) e "Campos" (colunas). Para automatizar processos, ele oferece duas abordagens principais:
+                    </p>
+                    <ul class="space-y-4">
+                        <li class="section-card">
+                            <h4 class="text-xl font-semibold mb-1" style="color: #118AB2;">Automação (Clicks)</h4>
+                            <p>Usando ferramentas visuais como <strong>Flows</strong> e <strong>Regras de Validação</strong>, administradores podem criar lógicas de negócios complexas sem escrever uma linha de código.</p>
+                        </li>
+                        <li class="section-card">
+                            <h4 class="text-xl font-semibold mb-1" style="color: #073B4C;">Programação (Code)</h4>
+                            <p>Para lógicas muito complexas ou integrações, desenvolvedores usam <strong>Apex</strong> (linguagem similar ao Java) e <strong>SOQL</strong> (linguagem de consulta) para controle total.</p>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-3xl font-bold mb-4 text-center">Decidindo: Clicks ou Code?</h3>
+                    <div class="p-4 rounded-lg bg-gray-50">
+                        <div class="flow-box" style="border-color: #118AB2;">
+                            <h4 class="text-xl font-semibold">O processo é simples ou de complexidade média?</h4>
+                            <p>(Ex: Enviar um email, atualizar um campo)</p>
+                        </div>
+                        <div class="flow-arrow"></div>
+                        <div class="flow-box bg-green-100" style="border-color: #06D6A0;">
+                            <h4 class="text-xl font-semibold" style="color: #06D6A0;">SIM</h4>
+                            <p class="font-semibold">Use Ferramentas Declarativas (Flows)</p>
+                            <p class="text-sm">Mais rápido de construir e fácil de manter.</p>
+                        </div>
+                        <div class="flow-arrow"></div>
+                        <div class="flow-box" style="border-color: #FFD166;">
+                            <h4 class="text-xl font-semibold">O processo é muito complexo?</h4>
+                            <p>(Ex: Alto volume de dados, integração com API externa)</p>
+                        </div>
+                        <div class="flow-arrow"></div>
+                        <div class="flow-box bg-red-100" style="border-color: #FF6B6B;">
+                            <h4 class="text-xl font-semibold" style="color: #FF6B6B;">SIM</h4>
+                            <p class="font-semibold">Use Programação (Apex)</p>
+                            <p class="text-sm">Necessário para performance e lógicas customizadas.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <hr class="my-16 border-gray-300">
+
+        <section id="carreira">
+            <h2 class="text-4xl font-bold mb-4 text-center">Carreira e Mercado de Trabalho</h2>
+            <p class="text-xl text-gray-700 max-w-3xl mx-auto mb-12 text-center">
+                O ecossistema Salesforce gera milhões de empregos. O aprendizado começa no <strong>Trailhead</strong>, a plataforma de ensino gratuita e gamificada da Salesforce. A partir daí, os profissionais seguem trilhas de certificação.
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+                <div class="section-card path-card" style="border-left-color: #118AB2;">
+                    <h3 class="text-2xl mb-2" style="color: #118AB2;">Administrador</h3>
+                    <p>Configura a plataforma, gerencia usuários, cria relatórios e automações (Flows). É o "resolvedor de problemas" do dia-a-dia.</p>
+                </div>
+                <div class="section-card path-card" style="border-left-color: #073B4C;">
+                    <h3 class="text-2xl mb-2" style="color: #073B4C;">Desenvolvedor</h3>
+                    <p>Cria soluções customizadas com código (Apex, LWC), foca em integrações e lógicas complexas que os "clicks" não alcançam.</p>
+                </div>
+                <div class="section-card path-card" style="border-left-color: #FFD166;">
+                    <h3 class="text-2xl mb-2" style="color: #FFD166;">Arquiteto</h3>
+                    <p>Perfil sênior que desenha a solução de alto nível, garantindo escalabilidade, segurança e integração entre sistemas.</p>
+                </div>
+            </div>
+
+            <h3 class="text-3xl font-bold mb-6 text-center">Faixas Salariais no Brasil (SJC e Região)</h3>
+            <p class="text-lg text-gray-700 max-w-3xl mx-auto mb-8 text-center">
+                O mercado no Brasil, especialmente com o trabalho remoto impulsionando vagas de SP para o interior (como SJC), está altamente aquecido. A demanda é maior que a oferta, elevando os salários.
+            </p>
+            <div class="chart-container" style="max-width: 900px; height: 450px;">
+                <h3 class="text-xl font-semibold text-center mb-4">Salário Médio Mensal (R$) por Nível e Função</h3>
+                <canvas id="salaryChart"></canvas>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="text-center p-8 mt-16 bg-white shadow-inner">
+        <p class="text-gray-600">Infográfico SPA criado como uma análise do ecossistema Salesforce.</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const chartColors = {
+                red: '#FF6B6B',
+                yellow: '#FFD166',
+                green: '#06D6A0',
+                blue: '#118AB2',
+                darkBlue: '#073B4C',
+                gray: '#A0AEC0'
+            };
+
+            const tooltipTitleCallback = (tooltipItems) => {
+                const item = tooltipItems[0];
+                let label = item.chart.data.labels[item.dataIndex];
+                if (Array.isArray(label)) {
+                    return label.join(' ');
+                } else {
+                    return label;
+                }
+            };
+
+            const defaultChartOptions = {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        labels: {
+                            color: chartColors.darkBlue,
+                            font: {
+                                family: "'Inter', sans-serif"
+                            }
+                        }
+                    },
+                    tooltip: {
+                        callbacks: {
+                            title: tooltipTitleCallback
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        ticks: {
+                            color: chartColors.darkBlue
+                        },
+                        grid: {
+                            color: '#E2E8F0'
+                        }
+                    },
+                    x: {
+                        ticks: {
+                            color: chartColors.darkBlue
+                        },
+                        grid: {
+                            color: '#E2E8F0'
+                        }
+                    }
+                }
+            };
+
+            const createMarketShareChart = () => {
+                const ctx = document.getElementById('marketShareChart').getContext('2d');
+                new Chart(ctx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['Salesforce', 'Microsoft', 'Oracle', 'SAP', 'Outros'],
+                        datasets: [{
+                            label: 'Market Share CRM',
+                            data: [23.9, 10.1, 7.5, 5.8, 52.7],
+                            backgroundColor: [chartColors.blue, chartColors.green, chartColors.red, chartColors.yellow, '#E2E8F0'],
+                            borderColor: '#ffffff',
+                            borderWidth: 3
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                position: 'bottom',
+                                labels: defaultChartOptions.plugins.legend.labels
+                            },
+                            tooltip: {
+                                callbacks: {
+                                    label: (context) => `${context.label}: ${context.raw}%`
+                                }
+                            }
+                        }
+                    }
+                });
+            };
+
+            const createCostChart = () => {
+                const ctx = document.getElementById('costChart').getContext('2d');
+                new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Essentials', 'Professional', 'Enterprise', 'Unlimited'],
+                        datasets: [{
+                            label: 'Custo Relativo',
+                            data: [15, 40, 65, 85],
+                            backgroundColor: chartColors.red,
+                        }, {
+                            label: 'Benefício Relativo',
+                            data: [20, 50, 80, 100],
+                            backgroundColor: chartColors.green,
+                        }]
+                    },
+                    options: {
+                        ...defaultChartOptions,
+                        scales: {
+                            ...defaultChartOptions.scales,
+                            y: { ...defaultChartOptions.scales.y, beginAtZero: true, max: 110 }
+                        },
+                        plugins: {
+                            ...defaultChartOptions.plugins,
+                            tooltip: {
+                                ...defaultChartOptions.plugins.tooltip,
+                                mode: 'index',
+                                intersect: false,
+                            }
+                        }
+                    }
+                });
+            };
+
+            const createSalaryChart = () => {
+                const ctx = document.getElementById('salaryChart').getContext('2d');
+                new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Júnior (1-2 anos)', 'Pleno (3-5 anos)', 'Sênior (5+ anos)'],
+                        datasets: [{
+                            label: 'Administrador',
+                            data: [5500, 9000, 14000],
+                            backgroundColor: chartColors.blue,
+                        }, {
+                            label: 'Desenvolvedor',
+                            data: [7000, 12000, 18000],
+                            backgroundColor: chartColors.darkBlue,
+                        }]
+                    },
+                    options: {
+                        ...defaultChartOptions,
+                        scales: {
+                            ...defaultChartOptions.scales,
+                            y: {
+                                ...defaultChartOptions.scales.y,
+                                beginAtZero: true,
+                                ticks: {
+                                    ...defaultChartOptions.scales.y.ticks,
+                                    callback: (value) => 'R$ ' + (value / 1000) + 'k'
+                                }
+                            }
+                        },
+                        plugins: {
+                            ...defaultChartOptions.plugins,
+                            tooltip: {
+                                ...defaultChartOptions.plugins.tooltip,
+                                mode: 'index',
+                                intersect: false,
+                                callbacks: {
+                                    ...defaultChartOptions.plugins.tooltip.callbacks,
+                                    label: (context) => `${context.dataset.label}: R$ ${context.raw.toLocaleString('pt-BR')}`
+                                }
+                            }
+                        }
+                    }
+                });
+            };
+            
+            createMarketShareChart();
+            createCostChart();
+            createSalaryChart();
+
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    document.querySelector(this.getAttribute('href')).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                });
+            });
+        });
+    </script>
+
+</body>
+</html>
